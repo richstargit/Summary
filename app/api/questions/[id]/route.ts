@@ -9,11 +9,10 @@ type ParamsContext = {
 }
 
 export async function GET(
-  request: Request,
-  { params }: ParamsContext
+
 ) {
   try {
-    const { id } = params  // ✅ เอา await ออก
+    const  id  = 1  // ✅ เอา await ออก
 
     const client = await clientPromise
     const db = client.db('Summary')
