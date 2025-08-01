@@ -5,7 +5,6 @@ import { ObjectId } from 'mongodb'
 interface Params {
   params: { id: string }
 }
-
 export async function GET(
   req: NextRequest,
   context: Params
