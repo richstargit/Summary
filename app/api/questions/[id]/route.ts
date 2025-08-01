@@ -1,8 +1,12 @@
 import clientPromise from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 import { NextResponse } from 'next/server'
-
-export async function GET(request:Request, { params }:any// ✅ รับ context แล้วใช้ด้านใน
+type ParamsContext = {
+  params: {
+    id: string
+  }
+}
+export async function GET(request:Request, { params }:ParamsContext// ✅ รับ context แล้วใช้ด้านใน
 ) {
   try {
     const {id} = await params       // ✅ ไม่ต้อง await
