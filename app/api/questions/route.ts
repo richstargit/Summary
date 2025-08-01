@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
-import multiparty from 'multiparty';
 import pdf from 'pdf-parse';
-import fs from 'fs'; // ต้อง import 'fs' เพื่อใช้ fs.readFileSync
 
 export const config = {
   api: {
