@@ -35,8 +35,17 @@ export default function Home() {
     })
 
     if (!res.ok) {
-      alert("อัปโหลดไม่สำเร็จ")
-      return
+      // ลองอ่าน JSON จาก response เพื่อนำ error message มาแสดง
+      let errorMsg = "อัปโหลดไม่สำเร็จ";
+      try {
+        const errorData = await res.json();
+        if (errorData.error) errorMsg += `: ${errorData.error}`;
+        else if (errorData.detail) errorMsg += `: ${errorData.detail}`;
+      } catch {
+        // ถ้า parse json ไม่ได้ ก็ไม่ต้องทำอะไร
+      }
+      alert(errorMsg);
+      return;
     }
 
     const data = await res.json()
