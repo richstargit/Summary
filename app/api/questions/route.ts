@@ -112,7 +112,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const formData = await req.formData();
   const file = formData.get('file') as File;
-
+  let data1 = "1"
   if (!file) {
     return new Response(JSON.stringify({ error: "Missing file" }), { status: 400 });
   }
@@ -125,7 +125,7 @@ export async function POST(req: Request) {
   if (!file.name.endsWith(".pdf")) {
     return new Response(JSON.stringify({ error: "Invalid file extension" }), { status: 400 });
   }
-
+  return NextResponse.json({ data: data1 })
   const buffer = Buffer.from(await file.arrayBuffer());
 
 

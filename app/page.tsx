@@ -49,7 +49,7 @@ export default function Home() {
     }
 
     const data = await res.json()
-    alert("อัปโหลดสำเร็จ 🎉: " + data.filename)
+    alert("อัปโหลดสำเร็จ 🎉: " + data)
   }
 
   return (
