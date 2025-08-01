@@ -2,10 +2,11 @@ import clientPromise from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 import { NextResponse } from 'next/server'
 
-export async function GET(params: { id: string }// ✅ รับ context แล้วใช้ด้านใน
+export async function GET(request: Request,
+  { params }: { params: { id: string } }// ✅ รับ context แล้วใช้ด้านใน
 ) {
   try {
-    const {id} = await params           // ✅ ไม่ต้อง await
+    const {id} = await params       // ✅ ไม่ต้อง await
     const client = await clientPromise
     const db = client.db('Summary')
 
