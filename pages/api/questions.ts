@@ -21,13 +21,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      // const client = await clientPromise
-      // const db = client.db('Summary')
-      // const item = await db.collection('questions').findOne({ _id: new ObjectId(id) })
+      const client = await clientPromise
+      const db = client.db('Summary')
+      const item = await db.collection('questions').findOne({ _id: new ObjectId(id) })
 
-      // if (!item) {
-      //   return res.status(404).json({ error: 'Item not found' })
-      // }
+      if (!item) {
+        return res.status(404).json({ error: 'Item not found' })
+      }
 
       return res.status(200).json({
     "data": [
