@@ -9,6 +9,7 @@ import { useState } from "react";
 export default function Home() {
   const [file, setFile] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [isSend, setisSend] = useState(false)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0]
@@ -25,6 +26,7 @@ export default function Home() {
 
   const handleUpload = async () => {
     if (!file) return
+    setisSend(true)
 
     const formData = new FormData()
     formData.append("file", file)
@@ -49,8 +51,7 @@ export default function Home() {
     }
 
     const data = await res.json()
-    console.log(data)
-    alert("อัปโหลดสำเร็จ 🎉: " + data)
+    window.location.href = `/questions/${data.insertedId}`;
   }
 
   return (
@@ -67,7 +68,7 @@ export default function Home() {
 
       <Button
         onClick={handleUpload}
-        disabled={!file}
+        disabled={!file||isSend}
         className="bg-gradient-to-r from-purple-500 to-pink-500 hover:scale-105 transition-all text-white"
       >
         <UploadCloud className="w-4 h-4 mr-2" />
