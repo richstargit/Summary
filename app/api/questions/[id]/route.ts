@@ -1,17 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server'
 import clientPromise from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
+import { NextResponse } from 'next/server'
 
-interface Params {
-  params: { id: string }
-}
-export async function GET(
-  req: NextRequest,
-  context: Params
+export async function GET(params: { id: string }// ✅ รับ context แล้วใช้ด้านใน
 ) {
-  const id = context.params.id
-
   try {
+    const {id} = await params           // ✅ ไม่ต้อง await
     const client = await clientPromise
     const db = client.db('Summary')
 
@@ -23,6 +17,7 @@ export async function GET(
 
     return NextResponse.json(item)
   } catch (error) {
+    console.error('GET /api/questions/[id] error:', error)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
