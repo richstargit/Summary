@@ -23,7 +23,7 @@ export default function QuestionPage() {
     const [data, setData] = useState<Data>()
 
     useEffect(() => {
-    fetch(`/api/questions?id=${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions?id=${id}`)
       .then(res => res.json())
       .then(setData)
   }, [])

@@ -31,10 +31,10 @@ export default function Home() {
     const formData = new FormData()
     formData.append("file", file)
 
-    const res = await fetch("/api/questions", {
-      method: "POST",
-      body: formData,
-    })
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions`, {
+    method: 'POST',
+    body: formData,
+  })
 
     if (!res.ok) {
       // ลองอ่าน JSON จาก response เพื่อนำ error message มาแสดง
