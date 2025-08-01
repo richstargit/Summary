@@ -1,7 +1,7 @@
 import clientPromise from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 import  Params  from 'next/dist/server/request/params';
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 const pdf = require('pdf-extraction');
 
@@ -13,6 +13,31 @@ export const config = {
 
 const API_KEY = process.env.API_KEY
 const GEMINI_URL = process.env.GEMINI_URL
+
+export async function GET(request: NextRequest) {
+  const url = new URL(request.url)
+  const id = url.searchParams.get('id')
+
+  if (!id || !ObjectId.isValid(id)) {
+    return NextResponse.json({ error: 'Invalid or missing id' }, { status: 400 })
+  }
+
+  try {
+    const client = await clientPromise
+    const db = client.db('Summary')
+
+    const item = await db.collection('questions').findOne({ _id: new ObjectId(id) })
+
+    if (!item) {
+      return NextResponse.json({ error: 'Item not found' }, { status: 404 })
+    }
+
+    return NextResponse.json(item)
+  } catch (error) {
+    console.error('GET /api/questions error:', error)
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+  }
+}
 
 
 export async function POST(req: Request) {

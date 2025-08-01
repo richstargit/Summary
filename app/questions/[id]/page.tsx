@@ -21,7 +21,7 @@ export default function QuestionPage() {
     const [data, setData] = useState<Data>()
 
     useEffect(() => {
-    fetch(`/api/questions/${id}`)
+    fetch(`/api/questions?id=${id}`)
       .then(res => res.json())
       .then(setData)
   }, [])
