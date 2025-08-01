@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
-import PdfParse from 'pdf-parse';
+import pdfParse from "pdf-parse";
+
+
 
 export const config = {
   api: {
@@ -109,22 +111,29 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const formData = await req.formData()
-  const file = formData.get('file') as File
+  const formData = await req.formData();
+  const file = formData.get('file') as File;
 
   if (!file) {
-    return NextResponse.json({ error: 'Missing file' }, { status: 400 })
+    return new Response(JSON.stringify({ error: "Missing file" }), { status: 400 });
   }
 
-  if (file.type !== 'application/pdf') {
-    return NextResponse.json({ error: 'Only PDF files are allowed' }, { status: 400 })
+  if (file.type !== "application/pdf") {
+    return new Response(JSON.stringify({ error: "Only PDF files are allowed" }), { status: 400 });
   }
 
-  const buffer = Buffer.from(await file.arrayBuffer())
+  // เพิ่มเติม: เช็กชื่อไฟล์ว่า .pdf ไหม (ถ้าอยากเช็กซ้ำ)
+  if (!file.name.endsWith(".pdf")) {
+    return new Response(JSON.stringify({ error: "Invalid file extension" }), { status: 400 });
+  }
 
-  // อ่านข้อความจาก PDF ด้วย pdf-parse
-  const pdfData = await PdfParse(buffer)
-  let fullText = pdfData.text
+  // แปลง File เป็น Buffer
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  // โหลด PDF ด้วย pdfjs
+  const data = await pdfParse(buffer);
+  let fullText = data.text;
 
   const maxChars = 15000
   if (fullText.length > maxChars) {
@@ -133,7 +142,7 @@ export async function POST(req: Request) {
 
   const prompt = `
 ฉันจะโยนสไลน์ให้แล้วอยากให้ช่วยสรุปข้อมูลออกมาเป็นคำถามตอบเกี่ยวกับวิชา ชีวะ
-เป็นข้อมูล json มีเลขข้อ คำถาม choice 5 ข้อ และเฉลย เป็นเลขใน list
+เป็นข้อมูล json มีเลขข้อ คำถาม choice 5 ข้อ และเฉลย เป็นเลขลำดับใน choice list เท่านั้น 0-4
 ต้องทำทั้งหมด 15 ข้อ ออกมาเป็น list ของตัวแปรชื่อ data : []
 อยากให้ มี ข้อที่ต้องวิเคราะห์ 2 ข้อ
 ตัวอย่าง 1 ชุด รูปแบบ json เท่านั้น
@@ -171,6 +180,7 @@ ${fullText}
 
   try {
     const parsed = JSON.parse(rawText.substring(start, end + 1))
+    console.log(parsed)
     return NextResponse.json({ data: parsed })
   } catch (e) {
     return NextResponse.json({ error: 'Invalid JSON format from LLM', raw: rawText })
