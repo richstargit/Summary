@@ -16,7 +16,9 @@ type Data = {
 }
 
 export default function QuestionPage() {
-    const { id } = useParams()
+    const params = useParams<{ id: string }>()
+    const id = params?.id ?? ''
+
     const [showAnswer,setShowAnswer] = useState(false)
     const [data, setData] = useState<Data>()
 
