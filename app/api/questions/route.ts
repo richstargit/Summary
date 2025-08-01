@@ -125,7 +125,6 @@ export async function POST(req: Request) {
   if (!file.name.endsWith(".pdf")) {
     return new Response(JSON.stringify({ error: "Invalid file extension" }), { status: 400 });
   }
-  return NextResponse.json({ data: data1 })
   const buffer = Buffer.from(await file.arrayBuffer());
 
 
