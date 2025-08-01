@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import pdf from 'pdf-parse';
+import PdfParse from 'pdf-parse';
 
 export const config = {
   api: {
@@ -123,7 +123,7 @@ export async function POST(req: Request) {
   const buffer = Buffer.from(await file.arrayBuffer())
 
   // อ่านข้อความจาก PDF ด้วย pdf-parse
-  const pdfData = await pdf(buffer)
+  const pdfData = await PdfParse(buffer)
   let fullText = pdfData.text
 
   const maxChars = 15000
