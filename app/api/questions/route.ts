@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
-import pdfParse from "pdf-parse";
 
-
+const pdf = require('pdf-extraction');
 
 export const config = {
   api: {
@@ -127,17 +126,15 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ error: "Invalid file extension" }), { status: 400 });
   }
 
-  // แปลง File เป็น Buffer
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
+  const buffer = Buffer.from(await file.arrayBuffer());
 
-  // โหลด PDF ด้วย pdfjs
-  const data = await pdfParse(buffer);
-  let fullText = data.text;
 
-  const maxChars = 15000
+  const data = await pdf(buffer);
+  let fullText = data.text || "";
+
+  const maxChars = 15000;
   if (fullText.length > maxChars) {
-    fullText = fullText.substring(0, maxChars)
+    fullText = fullText.substring(0, maxChars);
   }
 
   const prompt = `
