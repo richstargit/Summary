@@ -9,18 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "formidable": "^3.5.4",
     "lucide-react": "^0.535.0",
+    "multiparty": "^4.2.3",
     "next": "15.4.5",
+    "next-connect": "^1.0.0",
+    "pdf-parse": "^1.1.1",
+    "pdf2json": "^3.2.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/formidable": "^3.4.5",
+    "@types/multiparty": "^4.2.1",
     "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
