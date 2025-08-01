@@ -6,7 +6,7 @@ export async function GET(request,
   { params }// ✅ รับ context แล้วใช้ด้านใน
 ) {
   try {
-    const {id} = await params           // ✅ ไม่ต้อง await
+    const {id} = params           // ✅ ไม่ต้อง await
     const client = await clientPromise
     const db = client.db('Summary')
 
