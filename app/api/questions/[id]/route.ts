@@ -2,24 +2,16 @@ import clientPromise from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 import { NextResponse } from 'next/server'
 
-type ParamsContext = {
-  params: {
-    id: string
-  }
-}
-
-export async function GET(
-
+export async function GET(request: Request,
+    response:Response,
+  { params }: { params: { id: string } }// ✅ รับ context แล้วใช้ด้านใน
 ) {
   try {
-    const  id  = 1  // ✅ เอา await ออก
-
+    const {id} = await params           // ✅ ไม่ต้อง await
     const client = await clientPromise
     const db = client.db('Summary')
 
-    const item = await db
-      .collection('questions')
-      .findOne({ _id: new ObjectId(id) })
+    const item = await db.collection('questions').findOne({ _id: new ObjectId(id) })
 
     if (!item) {
       return NextResponse.json({ error: 'Item not found' }, { status: 404 })
