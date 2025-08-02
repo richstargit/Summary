@@ -3,7 +3,7 @@ import { cors } from "@elysiajs/cors";
 import "@/config/db.setup";
 import { logger } from "@chneau/elysia-logger";
 import { swagger } from '@elysiajs/swagger'
-import { TemplateRoute } from "@/router/template.router"
+import { QuestionsRoute } from "@/router/questions.router"
 
 /**
 * @comment Create a new Elysia app
@@ -20,7 +20,7 @@ const app = new Elysia()
   }))
   .use(logger())
   .use(cors())
-  .use(TemplateRoute)
+  .use(QuestionsRoute)
   .get("/", () =>{
     return {message: "Hello, Elysia! by HEX CODE"};
   })
