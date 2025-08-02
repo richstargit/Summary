@@ -4,7 +4,7 @@ import "@/config/db.setup";
 import { logger } from "@chneau/elysia-logger";
 import { swagger } from "@elysiajs/swagger";
 import { jwt } from "@elysiajs/jwt";
-
+import { QuestionsRoute } from "@/router/questions.router"
 import { TemplateRoute } from "@/router/template.router";
 import { AccountRoute } from "@/router/accounts.router";
 /**
@@ -34,6 +34,9 @@ const app = new Elysia()
   .use(AccountRoute)
   .get("/", () => {
     return { message: "Hello, Elysia! by HEX CODE" };
+  .use(QuestionsRoute)
+  .get("/", () =>{
+    return {message: "Hello, Elysia! by HEX CODE"};
   })
   .listen(process.env.SERVER_PORT || 3001);
 
