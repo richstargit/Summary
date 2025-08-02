@@ -1,6 +1,6 @@
 import { QuestionsModel } from '@/models/summary.model';
 import { ObjectId } from 'mongodb';
-export const Question = async ({params:{id}} : {params:{id:string}})=>{
+export const FindQuestion = async ({params:{id}} : {params:{id:string}})=>{
   try {
     const item = await QuestionsModel.findOne({ _id: new ObjectId(id) })
 

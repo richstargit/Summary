@@ -1,6 +1,6 @@
-import { Question } from '@/service/question.service';
+import { FindQuestion } from '@/service/question.service';
 import { Elysia } from 'elysia';
 
 
 export const QuestionsRoute = new Elysia({})
-    .get('question/:id', Question);
+    .get('question/:id', FindQuestion);
