@@ -1,5 +1,6 @@
 {
   "outputDirectory": "dist",
   "framework": null,
-  "buildCommand": "bun run build"
+  "buildCommand": "bun run build",
+  "startCommand": "bun run start"
 }
