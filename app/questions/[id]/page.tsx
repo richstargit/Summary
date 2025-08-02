@@ -12,6 +12,7 @@ type Question = {
 }
 
 type Data = {
+    title: string,
     data : Question[]
 }
 
@@ -23,7 +24,7 @@ export default function QuestionPage() {
     const [data, setData] = useState<Data>()
 
     useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions?id=${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/question?id=${id}`)
       .then(res => res.json())
       .then(setData)
   }, [])
@@ -31,7 +32,7 @@ export default function QuestionPage() {
     return (
         <div>
             <h1 className="text-center text-3xl font-bold tracking-tight text-primary mt-8">
-  🧬 Question #{id}
+  🧬 Question #{data?.title}
 </h1>
             {data?.data.map((d,index)=>{
                 return <div key={index} className='mt-5 mb-5'><CardQuestion showAnswer={showAnswer} data={d}></CardQuestion></div>
