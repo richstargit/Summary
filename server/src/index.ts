@@ -32,8 +32,6 @@ const app = new Elysia()
   .use(cors())
   .use(TemplateRoute)
   .use(AccountRoute)
-  .get("/", () => {
-    return { message: "Hello, Elysia! by HEX CODE" };
   .use(QuestionsRoute)
   .get("/", () =>{
     return {message: "Hello, Elysia! by HEX CODE"};
