@@ -1,3 +1,4 @@
 {
-  "framework": null
+  "framework": null,
+  "startCommand": "bun run start"
 }
