@@ -18,13 +18,13 @@ type Data = {
 
 export default function QuestionPage() {
     const params = useParams<{ id: string }>()
-    const id = params?.id ?? ''
+    const id_question = params?.id ?? ''
 
     const [showAnswer,setShowAnswer] = useState(false)
     const [data, setData] = useState<Data>()
 
     useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/question/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/question/${id_question}`)
       .then(res => res.json())
       .then(json => {
       if (json.status === 200) {
