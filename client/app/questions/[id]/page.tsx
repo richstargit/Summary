@@ -22,11 +22,17 @@ export default function QuestionPage() {
 
     const [showAnswer,setShowAnswer] = useState(false)
     const [data, setData] = useState<Data>()
-
+    
     useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/question?id=${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/question/${id}`)
       .then(res => res.json())
-      .then(setData)
+      .then(json => {
+      if (json.status === 200) {
+        setData(json.body)
+      } else {
+        console.error("เกิดข้อผิดพลาด: status != 200", json)
+      }
+    }).catch(err => console.error("Fetch error:", err))
   }, [])
 
     return (
