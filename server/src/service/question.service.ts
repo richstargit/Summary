@@ -44,7 +44,7 @@ export const GetQuestions = async ({})=>{
       body:item.map(item=>{
         return{
           title:item.title,
-          id:item._id,
+          id:item._id.toString(),
         }
       })
     }
