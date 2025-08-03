@@ -12,31 +12,19 @@ type Question = {
 }
 
 type Data = {
-<<<<<<< HEAD
     title: string,
     summary:string,
     data : Question[]
-=======
-  title: string,
-  data: Question[]
->>>>>>> 68bda364c74125f3ce68b575674b756709c80779
 }
 
 export default function QuestionPage() {
   const params = useParams<{ id: string }>()
   const id_question = params?.id ?? ''
 
-<<<<<<< HEAD
     const [showAnswer,setShowAnswer] = useState(false)
     const [data, setData] = useState<Data>()
 
     useEffect(() => {
-=======
-  const [showAnswer, setShowAnswer] = useState(false)
-  const [data, setData] = useState<Data>()
-
-  useEffect(() => {
->>>>>>> 68bda364c74125f3ce68b575674b756709c80779
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/question/${id_question}`)
       .then(res => res.json())
       .then(json => {
