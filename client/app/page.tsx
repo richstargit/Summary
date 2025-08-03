@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 type Data = {
   title: string;
-  _id: string;
+  id: string;
 };
 
 export default function Home() {
@@ -149,7 +149,7 @@ export default function Home() {
               {data?.map((item, idx) => (
                 <Link
                   key={idx}
-                  href={`/questions/${item._id}`}
+                  href={`/questions/${item.id}`}
                   className="block p-4 rounded-xl shadow-sm border border-gray-200 hover:bg-blue-50 transition"
                 >
                   <h2 className="text-base font-medium text-blue-700 hover:underline">
