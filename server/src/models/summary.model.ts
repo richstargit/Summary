@@ -18,7 +18,12 @@ const SummarySchema = new Schema(
     title:{
         type: String,
         required: true,
-        unique: true,
+        //unique: true, title should be same because ai not know the database
+    },
+    summary:{
+        type: String,
+        required: false,
+        default:""
     },
     data:{
         type: [QuestionSchema],
