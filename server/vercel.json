@@ -1,13 +1,10 @@
 {
-  "functions": {
-    "src/index.ts": {
-      "runtime": "vercel-bun@latest"
-    }
-  },
+  "buildCommand": "bun install && bun run build",
+  "outputDirectory": ".vercel/output",
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/src/index.ts"
+      "dest": "/api/index.js"
     }
   ]
 }
