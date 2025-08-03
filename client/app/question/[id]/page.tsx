@@ -13,6 +13,7 @@ type Question = {
 
 type Data = {
     title: string,
+    summary:string,
     data : Question[]
 }
 
