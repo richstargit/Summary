@@ -149,7 +149,7 @@ export default function Home() {
               {data?.map((item, idx) => (
                 <Link
                   key={idx}
-                  href={`/questions/${item.id}`}
+                  href={`/question/${item.id}`}
                   className="block p-4 rounded-xl shadow-sm border border-gray-200 hover:bg-blue-50 transition"
                 >
                   <h2 className="text-base font-medium text-blue-700 hover:underline">
