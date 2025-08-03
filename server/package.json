@@ -4,7 +4,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
-    "build": "bun build api/index.ts --outdir .vercel/output/functions/api_index"
+    "build": "bun build src/index.ts --outdir .vercel/output/functions/api_index"
   },
   "dependencies": {
     "@chneau/elysia-logger": "^1.0.10",
