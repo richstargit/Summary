@@ -131,7 +131,7 @@ export const CreateQuestion = async ({ request }: { request: Request }) => {
     const parsed = JSON.parse(rawText.substring(start, end + 1));
 
     // 8. บันทึกข้อมูลลงฐานข้อมูล MongoDB ด้วย Mongoose
-    const result = await QuestionsModel.create({ title: parsed.title, data: parsed.data });
+    const result = await QuestionsModel.create({ title: parsed.title,summary:parsed.summary, data: parsed.data });
 
     return {
       status: 200,
