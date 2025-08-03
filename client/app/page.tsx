@@ -22,6 +22,7 @@ export default function Home() {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/questions`
       );
+      console.log("FULL RESPONSE:", res.data); 
       const questions = res.data.body;
       if (Array.isArray(questions)) {
         setData(questions);
