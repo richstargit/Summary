@@ -20,7 +20,7 @@ export default function Home() {
   const GetQuestions = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/questions`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/questions`
       );
       const questions = res.data;
       if (Array.isArray(questions)) {
@@ -63,7 +63,7 @@ export default function Home() {
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/question`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/question`,
         formData,
         {
           headers: {
