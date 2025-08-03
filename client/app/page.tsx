@@ -18,9 +18,15 @@ export default function Home() {
   const [data,setData] = useState<Data[]>()
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/questions`)
       .then(res => res.json())
-      .then(setData)
+      .then(json => {
+      if (json.status === 200) {
+        setData(json.body)
+      } else {
+        console.error("เกิดข้อผิดพลาด: status != 200", json)
+      }
+    }).catch(err => console.error("Fetch error:", err))
   }, [])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +50,7 @@ export default function Home() {
     const formData = new FormData()
     formData.append("file", file)
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/question`, {
     method: 'POST',
     body: formData,
   })
@@ -65,7 +71,10 @@ export default function Home() {
     }
 
     const data = await res.json()
-    window.location.href = `/questions/${data.insertedId}`;
+    if(!data.body){
+      alert("error");
+    }
+    window.location.href = `/questions/${data.body.insertedId}`;
   }
 
   return (
