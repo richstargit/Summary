@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import CardQuestion from '@/components/ui/CardQuestion'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog"
 
 type Question = {
   number: number
@@ -22,6 +23,7 @@ export default function QuestionPage() {
   const id_question = params?.id ?? ''
 
     const [showAnswer,setShowAnswer] = useState(false)
+    const [showSummary,setShowSummary] = useState(false)
     const [data, setData] = useState<Data>()
     useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/question/${id_question}`)
@@ -40,7 +42,27 @@ export default function QuestionPage() {
       <h1 className="text-center text-3xl font-bold tracking-tight text-primary mt-8">
         🧬 Question #{data?.title}
       </h1>
-      <Button className='mx-auto block mt-4 mb-5'>Show Summary</Button>
+      <Button onClick={() => setShowSummary(true)} className='mx-auto block mt-4 mb-5'>Show Summary</Button>
+      <Dialog open={showSummary} onOpenChange={setShowSummary}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>📘 สรุปเนื้อหา</DialogTitle>
+        </DialogHeader>
+        <DialogDescription>
+      {data?.title}
+    </DialogDescription>
+
+        <div className="text-base text-gray-700 space-y-2 whitespace-pre-line overflow-y-auto max-h-[80vh]">
+          {data?.summary}
+        </div>
+
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setShowSummary(false)}>
+            ปิด
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
       {data?.data.map((d, index) => {
         return <div key={index} className='mt-5 mb-5'><CardQuestion showAnswer={showAnswer} data={d}></CardQuestion></div>
       })}

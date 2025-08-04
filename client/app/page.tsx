@@ -72,7 +72,7 @@ export default function Home() {
         }
       );
       const data = res.data;
-      window.location.href = `/questions/${data.insertedId}`;
+      window.location.href = `/question/${data.body.insertedId}`;
     } catch (error: any) {
       let errorMsg = "อัปโหลดไม่สำเร็จ";
       if (error.response?.data?.error) {
