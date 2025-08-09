@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { UploadCloud } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Switch } from "@/components/ui/switch";
 type Data = {
   title: string;
   id: string;
@@ -17,6 +18,7 @@ export default function Home() {
   const [isSend, setisSend] = useState(false);
   const [data, setData] = useState<Data[]>();
   const [loading, setloading] = useState<boolean>(true);
+  const [langQuestion, setlangQuestion] = useState<string>("th");
   const GetQuestions = async () => {
     try {
       const res = await axios.get(
@@ -54,13 +56,18 @@ export default function Home() {
     setisSend(false);
   };
 
+  const handleSwitch = (checked: boolean) => {
+    setlangQuestion(checked?"en":"th")
+  }
+
   const handleUpload = async () => {
     if (!file) return;
     setisSend(true);
 
     const formData = new FormData();
     formData.append("file", file);
-
+    formData.append("lang", langQuestion);
+    formData.append("level", "normal");
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/question`,
@@ -105,13 +112,21 @@ export default function Home() {
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {file && <p className="text-sm text-gray-600">ไฟล์: {file.name}</p>}
       </div>
-
+      <div className="mx-auto flex justify-center gap-5">
+        <h1>TH</h1>
+        <Switch
+        onCheckedChange={handleSwitch}
+        id="language-switch"
+      />
+      <h1>EN</h1>
+      </div>
       {/* Upload Button */}
       <Button
         onClick={handleUpload}
         disabled={!file || isSend}
         className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:scale-105 transition-transform text-white"
       >
+        
         <UploadCloud className="w-4 h-4 mr-2" />
         อัปโหลด PDF
       </Button>
