@@ -63,6 +63,8 @@ export const CreateQuestion = async ({ request }: { request: Request }) => {
 
 
   const file = formData.get("file");
+  const lang = formData.get("lang");
+  const level = formData.get("level");
 
   if (!file || !(file instanceof Blob) || !file.type.includes("pdf")) {
     return {
@@ -94,7 +96,7 @@ export const CreateQuestion = async ({ request }: { request: Request }) => {
       อยากให้ มี ข้อที่ต้องวิเคราะห์ 2 ข้อ
       มีตัวแปรชื่อ title เอาไว้เก็บหัวข้อเรื่องความยาวไม่เกิน 50 ตัวอักษร
       มีตัวแปรชื่อ summary ให้เก็บสรุปเนื้อหาทำเป็น string ยาวๆ ให้อ่านง่ายใช้ emoji ได้และเนื้อหาต้องถูกต้อง เว้นบรรดทัดให้สวยงาม
-      ภาษาของเนื้อหาทั้งหมดให้ดูว่าข้อมูลที่ให้มี ภาษาไทย หรือ อังกฤษ มากกว่ากัน ให้เป็นภาษาที่พบมากที่สุดในเนื้อหา
+      ภาษาของเนื้อหาทั้งหมดให้เป็นภาษา ${lang}
       ตัวอย่าง 1 ชุด รูปแบบ json เท่านั้น
       title : "ชีวะ",
       summary : "สรุปเนื้อหา...",
